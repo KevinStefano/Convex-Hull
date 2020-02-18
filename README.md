@@ -6,6 +6,9 @@ Dibuat oleh Kevin Austin Stefano
 ## Deskripsi
 Aplikasi sederhana dalam Bahasa c++ untuk menentukan convex hull dari kumpulan titik yang diberikan dalam bidang dua dimensi.Masukan dari program adalah banyaknya titik (yaitu n), dan kemudian titik sebanyak n dibangkitkan secara acak oleh program. Setiap titik dinyatakan dengan korordinat (x, y). Luaran program adalah himpunan titik yang membentuk convex hull, dan waktu yang diperlukan untuk menemukan convex hull (tidak termasuk waktu membaca data dan menuliskan luaran)
 
+
+![Convex Hull](https://media.geeksforgeeks.org/wp-content/uploads/ConvexHull.png)
+
 ## Cara Menjalankan
 Membuka file bersangkutan dan menjalankannya di terminal.
 
