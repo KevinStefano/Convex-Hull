@@ -1,7 +1,17 @@
+//NAMA : Kevin Austin Stefano
+
+//Untuk memvisualisasikan data dilakukan dengan memasukkan library graphics.h dilakukan dengan Dev C++
+//Hilangkan tanda komentar di beberapa kode jika ingin memvisualisasikan data pada program di bawah ini
+
 #include <iostream>
-#include <time.h>
-#include <iomanip>
-#include <cmath>
+
+//Library untuk mengukur waktu eksekusi
+#include <chrono>
+#include <iomanip>   
+
+//#include <graphics.h>
+//#include <sstream> 
+
 using namespace std;
 
 struct Titik
@@ -12,36 +22,49 @@ struct Titik
 }; 
 
 int main () {
+	
+	//initwindow(800,800);
+	
     int n;
 
     cout << "Masukkan jumlah titik \n";
     cin >> n;
     
-    clock_t tStart = clock();
 
     Titik TitikInput[n+1];
     Titik ArrayHasil[n+2];
     cout << "Titik hasil random adalah sebagai berikut" << endl;
     for (int i=1; i<=n; i++) 
     {
-        /*
         int x, y;
-        x= rand() % 10 + 1 ;
+        x= rand() % 100 + 1 ;
         TitikInput[i].X = x;
-        y= rand() % 10 + 1;
+        y= rand() % 100 + 1;
         TitikInput[i].Y = y;
-        */
-       cin >> TitikInput[i].X;
-       cin >> TitikInput[i].Y;
-        //cout <<"("<< x << "," << y  <<")" << endl;
-cout <<"("<<TitikInput[i].X << "," << TitikInput[i].Y  <<")" << endl;
+        
+        cout <<"("<< x << "," << y  <<")" << endl;
+
+		//circle(400+x*4,400-y*4,5);
+		//stringstream ss, sss;
+		//string s1,s2;
+		//ss << x;
+		//ss >> s1;
+		//sss << y;
+		//sss >> s2; 
+		//string s= "(" + s1 + "," + s2 + ")";
+	    //int le = s.length(); 
+	    //char char_string[le + 1]; 
+	    //strcpy(char_string, s.c_str()); 
+		//outtextxy(405+x*4,405-y*4, char_string) ;
+
+
         TitikInput[i].IsConvex =0;
         ArrayHasil[i].X=0;
         ArrayHasil[i].Y=0;
         ArrayHasil[i].IsConvex = 0;
     }
 
-    TitikInput[n+2].IsConvex =0;
+    	TitikInput[n+2].IsConvex =0;
         ArrayHasil[n+2].X=0;
         ArrayHasil[n+2].Y=0;
         ArrayHasil[n+2].IsConvex = 0;
@@ -50,15 +73,19 @@ cout <<"("<<TitikInput[i].X << "," << TitikInput[i].Y  <<")" << endl;
     int IsConneg =0;
 
     bool found = false;
-    int k =1, j=1;
+    int k =1, j=1;  
     int t1 = 1, t2 = 1;
     int idxhasil =1;
     int inisialidx=0;
-    int titik1, titik2, titik3;
+
+    
+    auto start = chrono::high_resolution_clock::now();
+
+
     while (k<=n+1)
     {
         found=false;
-        if (k==n-1) {
+        if (idxhasil==4 || k ==n) {
             TitikInput[inisialidx].IsConvex=0;
         }
 
@@ -76,21 +103,6 @@ cout <<"("<<TitikInput[i].X << "," << TitikInput[i].Y  <<")" << endl;
                       else {
                           IsConneg += 1;
                       }
-                      
-
-                       cout << "titiknya1 " << TitikInput[t1].X<<endl;
-                                cout << "titik1 Y nya " <<TitikInput[t1].Y <<endl;
-                              cout << "titiknya " << TitikInput[t2].X<<endl;
-                                cout << "titik Y nya " <<TitikInput[t2].Y <<endl;
-                                cout << "Convex y nya " << TitikInput[t2].IsConvex<<endl;
-                                cout << "urutan k ke ... " << k <<endl;
-                                cout << "titik Y nya " <<TitikInput[t2].Y <<endl;
-                                cout << "titik Y nya " <<TitikInput[t2].Y <<endl;
-                                cout << "t " << TitikInput[t3].X<<endl;
-                                cout << "t Y nya " <<TitikInput[t3].Y <<endl;
-                                cout << IsConpos <<"\n"<<endl;
-                                cout << IsConneg <<"\n"<<endl;
-
                                 
                  }
             }
@@ -98,54 +110,16 @@ cout <<"("<<TitikInput[i].X << "," << TitikInput[i].Y  <<")" << endl;
                 TitikInput[t2].IsConvex =1;
                 found=true;
 
-                
-                //Pengecheckan 3 titik
                 if (idxhasil==1) {
                     inisialidx=t2;
                 }
-
-                if((idxhasil)%4==0) {
-                    titik1=t2;
-                }
-                else if ((idxhasil)%2 == 0) {
-                    titik2=t2;
-                }
-                else if ((idxhasil)%3 == 0) {
-                    titik3 =t2;
-                }
-                cout << "t1: " <<titik1<<endl;
-                
-                cout << "t2: " <<titik2<<endl;
-                
-                cout << "t3: " <<titik3<<endl;
-                if (idxhasil>=3) {
-                    int Segaris = (TitikInput[titik2].Y-TitikInput[titik1].Y)*TitikInput[titik3].X + (TitikInput[titik1].X-TitikInput[titik2].X)*TitikInput[titik3].Y-(TitikInput[titik1].X*TitikInput[titik2].Y-TitikInput[titik1].Y*TitikInput[titik2].X);
-                        if (Segaris==0) {
-        
-                            if ((sqrt(pow(TitikInput[titik2].Y-TitikInput[titik1].Y,2)-(pow(TitikInput[titik2].X-TitikInput[titik1].X,2))) < (sqrt(pow(TitikInput[titik3].Y-TitikInput[titik1].Y,2)-(pow(TitikInput[titik3].X-TitikInput[titik1].X,2)))))) {
-                                idxhasil-=1;
-                                ArrayHasil[idxhasil].X = TitikInput[t2].X;
-                                ArrayHasil[idxhasil].Y = TitikInput[t2].Y;
-                                ArrayHasil[idxhasil].IsConvex = 1;
-                            }
-                        }
-                }
-                //Memasukkan ke array hasil
-                else {
-                    ArrayHasil[idxhasil].X = TitikInput[t2].X;
-                    ArrayHasil[idxhasil].Y = TitikInput[t2].Y;
-                    ArrayHasil[idxhasil].IsConvex = 1;
-                }
-
-                                TitikInput[t2].IsConvex =1;
-                                cout << "_______________________________________\n";
-                                cout << "titiknya1 " << TitikInput[t2].X<<endl;
-                                cout << "titik1 Y nya " <<TitikInput[t2].Y <<endl;
-                                 cout << "convex??   " <<TitikInput[t2].IsConvex <<endl;
-                                cout << "_______________________________________\n";
+                ArrayHasil[idxhasil].X = TitikInput[t2].X;
+                ArrayHasil[idxhasil].Y = TitikInput[t2].Y;
+                ArrayHasil[idxhasil].IsConvex = 1;
 
                 idxhasil ++;
                 j=1;
+
 
             }
             else {
@@ -156,12 +130,6 @@ cout <<"("<<TitikInput[i].X << "," << TitikInput[i].Y  <<")" << endl;
         if (found==true) 
         {
             t1=t2;
-            /*
-            cout << "+++++++++++++++++++++++++++++++++++\n";
-            cout << "titiknya1 " << TitikInput[t1].X<<endl;
-            cout << "titik1 Y nya " <<TitikInput[t1].Y <<endl;
-            cout << "+++++++++++++++++++++++++++++++++++\n";
-            */
         
         k++; 
         }
@@ -169,24 +137,37 @@ cout <<"("<<TitikInput[i].X << "," << TitikInput[i].Y  <<")" << endl;
         {
             t1 = t1%n+1;
             j=1;
-        k++; 
+        	k++; 
         }
     }
-    double waktu= ((double) (clock() - tStart)/CLOCKS_PER_SEC);
+    
+    auto end = chrono::high_resolution_clock::now();
+    
+    double waktu= chrono::duration_cast<chrono::nanoseconds>(end-start).count();
    cout << "Maka himpunan titik yang membentuk convex hull dinyatakan sebagai senarai (list) sebagai berikut:" << endl;
    cout <<"[";
-   //if (ArrayHasil[1].X == ArrayHasil[idxhasil-1].X && ArrayHasil[1].Y == ArrayHasil[idxhasil-1].Y)
+   if (ArrayHasil[1].X == ArrayHasil[idxhasil-1].X && ArrayHasil[1].Y == ArrayHasil[idxhasil-1].Y)
    {
        int i =1;
         while (i<idxhasil-1)
         {
             cout << "(" <<  ArrayHasil[i].X << "," <<ArrayHasil[i].Y <<"),";
+            //line(400+ArrayHasil[i].X*4 ,400-ArrayHasil[i].Y*4,400+ArrayHasil[i+1].X*4,400-ArrayHasil[i+1].Y*4);
             i++;
         }
         cout << "(" <<  ArrayHasil[idxhasil-1].X << "," <<ArrayHasil[idxhasil-1].Y<<")";
    }
-   cout <<"]"<<endl;
-    cout << fixed << setprecision( 6 ) << "Time taken: " << waktu <<" sekon "<<endl;
+   cout <<"]"<<endl; 
+    cout << fixed << setprecision(3) << "Waktu yang diperlukan: " << waktu <<" nanosekon "<<endl;
 
-    return 0;
+
+	//line x -axis	
+	//line(0,400,800,400);
+	//outtextxy(700,420, "Sumbu X");
+	//line y-axis
+	//line(400,0,400,800);
+	//outtextxy(380,20, "Sumbu Y");
+	//getch();
+	
+	return 0;
 }
